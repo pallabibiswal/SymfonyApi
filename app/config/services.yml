@@ -33,3 +33,20 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    #Exception Listener
+    AppBundle\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+
+    #Request Listener
+    AppBundle\EventListener\RequestListener:
+        arguments: ['@service_container', '@monolog.logger.api']
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+
+    #Response Listener
+    AppBundle\EventListener\ResponseListener:
+        arguments: ['@service_container', '@monolog.logger.api']
+        tags:
+            - { name: kernel.event_listener, event: kernel.response }
