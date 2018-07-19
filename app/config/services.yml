@@ -62,3 +62,17 @@ services:
         class: 'AppBundle\Services\ProcessApiRequest'
         arguments: ['@doctrine.orm.entity_manager']
         public: true
+
+    admin.merchant:
+        class: AppBundle\Admin\MerchantAdmin
+        arguments: [~, AppBundle\Entity\Merchant, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Merchant }
+        public: true
+
+    admin.device:
+            class: AppBundle\Admin\DeviceAdmin
+            arguments: [~, AppBundle\Entity\Device, ~]
+            tags:
+                - { name: sonata.admin, manager_type: orm, label: Device }
+            public: true

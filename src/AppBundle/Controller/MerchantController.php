@@ -43,7 +43,7 @@ class MerchantController extends FOSRestController
     }
 
     /**
-     * @Get("/api/merchant/all")
+     * @Get("/api/all/merchant")
      */
     public function getAllMerchant()
     {
