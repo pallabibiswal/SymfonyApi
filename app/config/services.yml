@@ -50,3 +50,15 @@ services:
         arguments: ['@service_container', '@monolog.logger.api']
         tags:
             - { name: kernel.event_listener, event: kernel.response }
+
+    # APi services
+    service_api_authenticaton:
+        class: 'AppBundle\Services\ApiAuthentication'
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true
+
+    # APi services
+    service_api_processing:
+        class: 'AppBundle\Services\ProcessApiRequest'
+        arguments: ['@doctrine.orm.entity_manager']
+        public: true

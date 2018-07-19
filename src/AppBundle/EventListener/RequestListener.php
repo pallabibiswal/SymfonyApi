@@ -18,7 +18,7 @@ class RequestListener
     private $container;
 
     /**
-     * @var
+     * @var LoggerInterface
      */
     private $logger;
 
@@ -35,13 +35,17 @@ class RequestListener
 
     /**
      * @param GetResponseEvent $event
+     * @return bool
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request = $event->getRequest();
-        $content = $request->getContent();
-        $headers = $request->headers->all();
-        $this->logger->info('Request Content :'. json_encode($content));
-        $this->logger->info('Request Header :'. json_encode($headers));
+        $routePath = $request->getPathInfo();
+        if (0 !== strpos('api', $routePath)) {
+            return true;
+        }
+
+        $auth = $this->container->get('service_api_authenticaton');
+        return $auth->authCheck($request);
     }
 }

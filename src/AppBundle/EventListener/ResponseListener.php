@@ -39,7 +39,12 @@ class ResponseListener
      */
     public function onKernelResponse(FilterResponseEvent $event)
     {
+        $request = $event->getRequest();
+        $headers = $request->headers->all();
         $response = $event->getResponse();
-        $this->logger->info('Response: '.json_encode($response->getContent()));
+        $this->logger->info('Request : '.
+            json_encode($request->getContent()).PHP_EOL.'Headers :' .
+            json_encode($headers).PHP_EOL.'Response :'.json_encode($response->getContent()).PHP_EOL
+        );
     }
 }
